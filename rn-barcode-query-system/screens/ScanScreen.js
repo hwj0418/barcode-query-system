@@ -11,7 +11,8 @@ import {
 } from 'react-native';
 
 // Import components
-import BarcodeScanner from '../components/BarcodeScanner.js'
+import BarcodeScanner from '../components/BarcodeScanner.js';
+import Header from '../components/Header.js';
 
 // Import constants
 import Colors from '../constants/colors.js';
@@ -20,6 +21,7 @@ import Texts from '../constants/texts-en.js';
 const ScanScreen = (props) => {
   return (
     <View style={styles.screen}>
+      <Header />
       <View style={styles.barCodeScannerContainer}>
         <BarcodeScanner />
       </View>
