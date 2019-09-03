@@ -19,13 +19,28 @@ import Colors from '../constants/colors.js';
 import Texts from '../constants/texts-en.js';
 
 const ScanScreen = (props) => {
+
+  // Hooks
+  const [barcode, setBarcode] = useState('');
+
+
+
   return (
-    <View style={styles.screen}>
-      <Header />
-      <View style={styles.barCodeScannerContainer}>
-        <BarcodeScanner />
+    <TouchableWithoutFeedback
+    onPress={() => {
+      Keyboard.dismiss();
+    }}
+    >
+      <View style={styles.screen}>
+        <Header />
+        <View style={styles.barCodeScannerContainer}>
+          <BarcodeScanner />
+        </View>
+        <View style={styles.scanResultContainer}>
+
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -39,7 +54,16 @@ const styles = StyleSheet.create({
     width: 300,
     maxWidth: '80%',
     height: 500,
-    maxHeight: '80%'
+    maxHeight: '80%',
+    paddingVertical: 30
+  },
+  scanResultContainer: {
+    flexDirection: 'column',
+
+  },
+  input: {
+    width: 50,
+    textAlign: 'center'
   }
 });
 
