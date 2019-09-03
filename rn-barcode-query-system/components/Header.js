@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
   header: {
     width: '100%',
     height: 70,
-    paddingTop: 36,
     backgroundColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
     height: 35
   },
   acctText: {
-    fontSize: 18,
+    fontSize: 15,
     marginHorizontal: 10
   }
 });
