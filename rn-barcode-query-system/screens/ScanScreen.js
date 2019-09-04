@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
     maxWidth: '80%',
     height: 500,
     maxHeight: '80%',
-    paddingVertical: 30
+    paddingVertical: 5,
+    marginTop: 20
   },
   scanResultContainer: {
     flexDirection: 'column',
@@ -139,14 +140,16 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     maxWidth: '80%',
+    height: 50,
+    maxHeight: '90%',
     textAlign: 'center',
-    fontSize: 18
+    fontSize: 25
   },
   buttonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 20
+    marginTop: 5
   },
   backButton: {
     width: 130,
