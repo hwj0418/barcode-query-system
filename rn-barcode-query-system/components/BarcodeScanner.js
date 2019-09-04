@@ -85,7 +85,7 @@ export default class BarcodeScanner extends React.Component {
   }
 }
 
-// Style information
+// Styling information
 const styles = StyleSheet.create({
   barcodeScanner: {
     flex: 1,

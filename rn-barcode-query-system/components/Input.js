@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
 
 const Input = (props) => {
   return (
@@ -7,6 +7,7 @@ const Input = (props) => {
   );
 };
 
+// Styling information
 const styles = StyleSheet.create({
   input: {
     height: 30,

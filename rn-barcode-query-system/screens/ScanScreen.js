@@ -72,15 +72,18 @@ const ScanScreen = (props) => {
     >
       <View style={styles.screen}>
 
+        {/* Screen Header */}
         <Header />
 
-
+        {/* Backgound Image */}
         <View>
             <Image style={styles.backgroundImg} source={require('../media/background_grocery.png')} />
         </View>
 
+        {/* Scrollale Main Body */}
         <ScrollView contentContainerStyle={styles.body} onScroll={hideKeyboardHandler}>
 
+          {/* Togglable Barcode Scanner (folded when keypad is shown) */}
           <ToggleView
             hide={keyboardEnabled}
             style={styles.barCodeScannerContainer}
@@ -88,8 +91,10 @@ const ScanScreen = (props) => {
             <BarcodeScanner onBarcodeScanned={barcodeScannedHandler} />
           </ToggleView>
 
+          {/* Container for Scan Result and Operating Buttons */}
           <View style={styles.scanResultContainer}>
 
+            {/* Editable Scan Result */}
             <Input
               style={styles.input}
               blurOnSubmit
@@ -101,8 +106,10 @@ const ScanScreen = (props) => {
               value={barcode}
             />
 
+            {/* Operating Buttons Container */}
             <View style={styles.buttonContainer}>
 
+              {/* Back Button */}
               <TouchableOpacity style={styles.backButton}>
                 <Button
                   title={Texts.backButtonText}
@@ -111,6 +118,7 @@ const ScanScreen = (props) => {
                 />
               </TouchableOpacity>
 
+              {/* Confirm Button */}
               <TouchableOpacity style={styles.confirmButton}>
                 <Button
                   title={Texts.confirmButtonText}
@@ -130,6 +138,7 @@ const ScanScreen = (props) => {
   );
 };
 
+// Styling information
 const styles = StyleSheet.create({
   screen: {
     flex: 1,

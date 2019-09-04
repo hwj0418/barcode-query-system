@@ -26,6 +26,7 @@ const Header = (props) => {
   );
 };
 
+// Styling information
 const styles = StyleSheet.create({
   header: {
     width: '100%',
