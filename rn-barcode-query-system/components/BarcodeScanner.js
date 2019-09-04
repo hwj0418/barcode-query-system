@@ -18,11 +18,15 @@ import Input from '../components/Input.js';
 import Texts from '../constants/texts-en.js';
 
 export default class BarcodeScanner extends React.Component {
-  state = {
-    hasCameraPermission: null,
-    scanned: false,
-    barcode: ''
-  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasCameraPermission: null,
+      scanned: false,
+      barcode: ''
+    };
+  }
 
   // Ask for permissions when elements are rendered
   async componentDidMount() {
@@ -39,6 +43,7 @@ export default class BarcodeScanner extends React.Component {
   handleBarCodeScanned = ({ type, data }) => {
     this.setState({ scanned: true, barcode: data });
     // alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    this.props.onBarcodeScanned(data.replace(/[^0-9]/g, ''));
   };
 
   // Barcode input box value updating handler
@@ -58,11 +63,7 @@ export default class BarcodeScanner extends React.Component {
     }
     return (
       <View
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'flex-end',
-        }}>
+        style={styles.barcodeScanner}>
         <BarCodeScanner
           onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
           style={StyleSheet.absoluteFillObject}
@@ -79,15 +80,6 @@ export default class BarcodeScanner extends React.Component {
             </TouchableOpacity>
           </View>
         )}
-        <Input
-          style={styles.input}
-          blurOnSubmit
-          autoCaptalize='none'
-          autoCorrect={false}
-          keyboardType='number-pad'
-          onChangeText={this.barcodeInputHandler}
-          value={this.state.barcode}
-        />
       </View>
     );
   }
@@ -95,6 +87,11 @@ export default class BarcodeScanner extends React.Component {
 
 // Style information
 const styles = StyleSheet.create({
+  barcodeScanner: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-end'
+  },
   rescanButton: {
     maxWidth: '80%',
     borderRadius: 10,
