@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
+// Import conponents
 import BarcodeScanner from '../components/BarcodeScanner.js';
 
 const ToggleView = (props) => {

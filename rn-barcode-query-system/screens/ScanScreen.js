@@ -8,7 +8,8 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
-  KeyboardAvoidingView
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
 
 // Import components
@@ -50,33 +51,67 @@ const ScanScreen = (props) => {
   };
   console.log("Before rendering in ScanScreen, keyboardEnabled: " + keyboardEnabled);
   console.log("Before rendering in ScanScreen, !keyboardEnabled: " + !keyboardEnabled + "\n");
+
+  // Handler for hiding keyboard when user clicked somewhere other than the keypad
+  const hideKeyboardHandler = () => {
+    Keyboard.dismiss();
+    setKeyboardEnabled(false);
+  };
+
   return (
     <TouchableWithoutFeedback
-    onPress={() => {
-      Keyboard.dismiss();
-      setKeyboardEnabled(false);
-    }}
+    onPress={hideKeyboardHandler}
     >
       <View style={styles.screen}>
+
         <Header />
-        <ToggleView
-          hide={keyboardEnabled}
-          style={styles.barCodeScannerContainer}
-        >
-          <BarcodeScanner onBarcodeScanned={barcodeScannedHandler} />
-        </ToggleView>
-        <View style={styles.scanResultContainer}>
-          <Input
-            style={styles.input}
-            blurOnSubmit
-            autoCaptalize='none'
-            autoCorrect={false}
-            keyboardType='number-pad'
-            onChangeText={barcodeInputEditHandler}
-            onFocus={barcodeInputPressedHandler}
-            value={barcode}
-          />
-        </View>
+
+        <ScrollView contentContainerStyle={styles.body}>
+
+          <ToggleView
+            hide={keyboardEnabled}
+            style={styles.barCodeScannerContainer}
+          >
+            <BarcodeScanner onBarcodeScanned={barcodeScannedHandler} />
+          </ToggleView>
+
+          <View style={styles.scanResultContainer}>
+
+            <Input
+              style={styles.input}
+              blurOnSubmit
+              autoCaptalize='none'
+              autoCorrect={false}
+              keyboardType='number-pad'
+              onChangeText={barcodeInputEditHandler}
+              onFocus={barcodeInputPressedHandler}
+              value={barcode}
+            />
+
+            <View style={styles.buttonContainer}>
+
+              <TouchableOpacity style={styles.backButton}>
+                <Button
+                  title={Texts.backButtonText}
+                  color='white'
+                  onPress={() => {}}
+                />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.confirmButton}>
+                <Button
+                  title={Texts.confirmButtonText}
+                  color='white'
+                  onPress={() => {}}
+                />
+              </TouchableOpacity>
+
+            </View>
+
+          </View>
+
+        </ScrollView>
+
       </View>
     </TouchableWithoutFeedback>
   );
@@ -86,6 +121,9 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'flex-start',
+  },
+  body: {
+    width: '100%',
     alignItems: 'center'
   },
   barCodeScannerContainer: {
@@ -97,12 +135,38 @@ const styles = StyleSheet.create({
   },
   scanResultContainer: {
     flexDirection: 'column',
-
   },
   input: {
     width: 300,
     maxWidth: '80%',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 18
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: 20
+  },
+  backButton: {
+    width: 130,
+    maxWidth: '80%',
+    height: 50,
+    maxHeight: '90%',
+    borderRadius: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center',
+    marginBottom: 20
+  },
+  confirmButton: {
+    width: 130,
+    maxWidth: '80%',
+    height: 50,
+    maxHeight: '90%',
+    borderRadius: 10,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center',
+    marginBottom: 20
   }
 });
 
