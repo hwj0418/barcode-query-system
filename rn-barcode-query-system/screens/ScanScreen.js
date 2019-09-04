@@ -9,7 +9,9 @@ import {
   Keyboard,
   Alert,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Dimensions,
+  Image
 } from 'react-native';
 
 // Import components
@@ -21,6 +23,9 @@ import ToggleView from '../components/ToggleView.js';
 // Import constants
 import Colors from '../constants/colors.js';
 import Texts from '../constants/texts-en.js';
+
+let screenWidth = Dimensions.get('window').width;
+let screenHeight = Dimensions.get('window').height;
 
 const ScanScreen = (props) => {
 
@@ -54,19 +59,27 @@ const ScanScreen = (props) => {
 
   // Handler for hiding keyboard when user clicked somewhere other than the keypad
   const hideKeyboardHandler = () => {
+    console.log("hideKeyboardHandler is called...");
     Keyboard.dismiss();
+    console.log("Before setKeyboardEnabled(false), keyboardEnabled: " + keyboardEnabled);
     setKeyboardEnabled(false);
+    console.log("After setKeyboardEnabled(false), keyboardEnabled: " + keyboardEnabled);
   };
 
   return (
     <TouchableWithoutFeedback
-    onPress={hideKeyboardHandler}
+      onPress={hideKeyboardHandler}
     >
       <View style={styles.screen}>
 
         <Header />
 
-        <ScrollView contentContainerStyle={styles.body}>
+
+        <View>
+            <Image style={styles.backgroundImg} source={require('../media/background_grocery.png')} />
+        </View>
+
+        <ScrollView contentContainerStyle={styles.body} onScroll={hideKeyboardHandler}>
 
           <ToggleView
             hide={keyboardEnabled}
@@ -125,6 +138,16 @@ const styles = StyleSheet.create({
   body: {
     width: '100%',
     alignItems: 'center'
+  },
+  backgroundImg: {
+    height: screenHeight,
+    width: screenWidth,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    resizeMode: 'cover'
   },
   barCodeScannerContainer: {
     width: 300,
