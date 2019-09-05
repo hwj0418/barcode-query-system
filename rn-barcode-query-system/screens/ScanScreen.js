@@ -86,12 +86,9 @@ const ScanScreen = (props) => {
     >
       <View style={styles.screen}>
 
-        {/* Screen Header */}
-        <Header />
-
         {/* Backgound Image */}
         <View>
-            <Image style={styles.backgroundImg} source={BackgroundImg} />
+          <Image style={styles.backgroundImg} source={BackgroundImg} />
         </View>
 
         {/* Scrollale Main Body */}
@@ -157,6 +154,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'flex-start',
+    width: '100%'
   },
   body: {
     width: '100%',
@@ -164,7 +162,7 @@ const styles = StyleSheet.create({
   },
   backgroundImg: {
     height: screenHeight,
-    width: screenWidth,
+    width: '100%',
     position: 'absolute',
     top: 0,
     bottom: 0,

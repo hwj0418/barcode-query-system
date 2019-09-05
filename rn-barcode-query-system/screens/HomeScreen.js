@@ -69,9 +69,6 @@ const HomeScreen = (props) => {
     >
       <View style={styles.screen}>
 
-        {/* Screen Header */}
-        <Header />
-
         {/* Backgound Image */}
         <View>
             <Image style={styles.backgroundImg} source={BackgroundImg} />
