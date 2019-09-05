@@ -115,6 +115,7 @@ const ScanScreen = (props) => {
               onChangeText={barcodeInputEditHandler}
               onFocus={barcodeInputPressedHandler}
               value={barcode}
+              contextMenuHidden={true}
             />
 
             {/* Operating Buttons Container */}

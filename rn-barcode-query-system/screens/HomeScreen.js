@@ -106,6 +106,7 @@ const HomeScreen = (props) => {
                 onChangeText={searchBarEditHandler}
                 onFocus={searchBarPressedHandler}
                 value={barcode}
+                contextMenuHidden={true}
               />
 
             </View>
