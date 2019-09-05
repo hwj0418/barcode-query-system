@@ -38,12 +38,21 @@ export default function App() {
   // Handler for search a product with given barcode sent from ScanScreen
   const clickSearchButtonHandler = (barcode) => {
     // TODO: fake backend for now.... need to be updated after BE is established
-    console.log("Waiting for BE responds for search product with barcode: " + barcode);
-    Alert.alert(
-      'Fake Backend',
-      "Waiting for BE responds for search product with barcode: " + barcode,
-      [{text: 'Okay', style: 'destructive', onPress: redirectToHome}]
-    );
+    // Barcode validation
+    if (barcode !== '') {
+      console.log("Waiting for BE responds for search product with barcode: " + barcode);
+      Alert.alert(
+        'Fake Backend',
+        "Waiting for BE responds for search product with barcode: " + barcode,
+        [{text: 'Okay', style: 'destructive', onPress: redirectToHome}]
+      );
+    } else {
+      Alert.alert(
+        'Barcode cannot be empty!',
+        "Plese scan or type a valid barcode...",
+        [{text: 'Okay', style: 'destructive', onPress: redirectToHome}]
+      );
+    }
   }
 
 
