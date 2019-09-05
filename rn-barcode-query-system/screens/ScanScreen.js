@@ -70,6 +70,11 @@ const ScanScreen = (props) => {
     console.log("After setKeyboardEnabled(false), keyboardEnabled: " + keyboardEnabled);
   };
 
+  // Handler for clicking back to HomeScreen button
+  const clickBackButtonHandler = () => {
+    props.onBackButtonClicked();
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={hideKeyboardHandler}
@@ -118,7 +123,7 @@ const ScanScreen = (props) => {
                 <Button
                   title={Texts.backButtonText}
                   color='white'
-                  onPress={() => {}}
+                  onPress={clickBackButtonHandler}
                 />
               </TouchableOpacity>
 

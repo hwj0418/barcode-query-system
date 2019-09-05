@@ -10,15 +10,21 @@ export default function App() {
   // Hooks
   const [scanScreenOn, setScanScreenOn] = useState(false);
 
-  const clickScanButtonHandler = () => {
+  // Handler for redirecting from HomeScreen to ScanScreen
+  const homeScreentoScanScreenHandler = () => {
     setScanScreenOn(true);
+  };
+
+  // Handler for redirecting from ScanScreen to HomeScreen
+  const scanScreenToHomeScreenHandler = () => {
+    setScanScreenOn(false);
   };
 
   let content;
   if (!scanScreenOn) {
-    content = (<HomeScreen onScanButtonClicked={clickScanButtonHandler}/>);
+    content = (<HomeScreen onScanButtonClicked={homeScreentoScanScreenHandler} />);
   } else {
-    content = (<ScanScreen />);
+    content = (<ScanScreen onBackButtonClicked={scanScreenToHomeScreenHandler} />);
   }
 
   return (
