@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 
 // Import components
-import BarcodeScanner from '../components/BarcodeScanner.js';
 import Header from '../components/Header.js';
 import Input from '../components/Input.js';
 import ToggleView from '../components/ToggleView.js';
@@ -26,48 +25,42 @@ import Texts from '../constants/texts-en.js';
 
 // Import media file
 import BackgroundImg from '../media/background_grocery.png';
-
+import ScanImg from '../media/barcode_icon.png';
 
 let screenWidth = Dimensions.get('window').width;
 let screenHeight = Dimensions.get('window').height;
 
-const ScanScreen = (props) => {
+const HomeScreen = (props) => {
 
   // Hooks
   const [barcode, setBarcode] = useState('');
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
 
-  // Handler for finishing a barcode scanning
-  const barcodeScannedHandler = (barcode) => {
-    console.log("barcodeScannedHandler is called...");
-    setBarcode(barcode);
-    console.log("Print out scanned barcode from ScanScreen: " + barcode);
-  };
-
   // Handler for pressing barcode result showing input box
-  const barcodeInputPressedHandler = () => {
-    console.log("barcodeInputPressedHandler is called...");
-    console.log("Before calling setKeyboardEnabled(true): " + keyboardEnabled);
+  const searchBarPressedHandler = () => {
     setKeyboardEnabled(true);
-    console.log("Keyboard enabeled: " + keyboardEnabled);
   };
 
-  // Handler for editing barcode result showing input box
-  const barcodeInputEditHandler = (newBarcode) => {
-    console.log("barcodeInputEditHandler is called...");
+  // Handler for editing search bar input box
+  const searchBarEditHandler = (newBarcode) => {
     setKeyboardEnabled(true);
     setBarcode(newBarcode);
   };
-  console.log("Before rendering in ScanScreen, keyboardEnabled: " + keyboardEnabled);
-  console.log("Before rendering in ScanScreen, !keyboardEnabled: " + !keyboardEnabled + "\n");
 
   // Handler for hiding keyboard when user clicked somewhere other than the keypad
   const hideKeyboardHandler = () => {
-    console.log("hideKeyboardHandler is called...");
     Keyboard.dismiss();
-    console.log("Before setKeyboardEnabled(false), keyboardEnabled: " + keyboardEnabled);
     setKeyboardEnabled(false);
-    console.log("After setKeyboardEnabled(false), keyboardEnabled: " + keyboardEnabled);
+  };
+
+  // Handler for cleaning search bar content
+  const clearSearchBarHandler = () => {
+    setBarcode('');
+  };
+
+  // Handler for clicking barcode scanning button
+  const clickScanButtonHandler = () => {
+    props.onScanButtonClicked();
   };
 
   return (
@@ -84,48 +77,51 @@ const ScanScreen = (props) => {
             <Image style={styles.backgroundImg} source={BackgroundImg} />
         </View>
 
-        {/* Scrollale Main Body */}
-        <ScrollView contentContainerStyle={styles.body} onScroll={hideKeyboardHandler}>
+        {/* Main Body */}
+        <View style={styles.body}>
 
-          {/* Togglable Barcode Scanner (folded when keypad is shown) */}
-          <ToggleView
-            hide={keyboardEnabled}
-            style={styles.barCodeScannerContainer}
-          >
-            <BarcodeScanner onBarcodeScanned={barcodeScannedHandler} />
-          </ToggleView>
+          {/* Container for search bar and operating buttons */}
+          <View style={styles.searchSectionContainer}>
 
-          {/* Container for Scan Result and Operating Buttons */}
-          <View style={styles.scanResultContainer}>
+            {/* Editable  */}
+            <View style={styles.searchBarContainer}>
 
-            {/* Editable Scan Result */}
-            <Input
-              style={styles.input}
-              blurOnSubmit
-              autoCaptalize='none'
-              autoCorrect={false}
-              keyboardType='number-pad'
-              onChangeText={barcodeInputEditHandler}
-              onFocus={barcodeInputPressedHandler}
-              value={barcode}
-            />
+              {/* Scan barcode icon  */}
+              <TouchableOpacity onPress={clickScanButtonHandler}>
+                <Image style={styles.scanIcon} source={ScanImg} />
+              </TouchableOpacity>
+
+
+              {/* Editable search bar */}
+              <Input
+                style={styles.input}
+                blurOnSubmit
+                autoCaptalize='none'
+                autoCorrect={false}
+                keyboardType='number-pad'
+                onChangeText={searchBarEditHandler}
+                onFocus={searchBarPressedHandler}
+                value={barcode}
+              />
+
+            </View>
 
             {/* Operating Buttons Container */}
             <View style={styles.buttonContainer}>
 
-              {/* Back Button */}
-              <TouchableOpacity style={styles.backButton}>
+              {/* Clear Button */}
+              <TouchableOpacity style={styles.clearButton}>
                 <Button
-                  title={Texts.backButtonText}
+                  title={Texts.clearButtonText}
                   color='white'
-                  onPress={() => {}}
+                  onPress={clearSearchBarHandler}
                 />
               </TouchableOpacity>
 
-              {/* Confirm Button */}
-              <TouchableOpacity style={styles.confirmButton}>
+              {/* Search Button */}
+              <TouchableOpacity style={styles.searchButton}>
                 <Button
-                  title={Texts.confirmButtonText}
+                  title={Texts.searchButtonText}
                   color='white'
                   onPress={() => {}}
                 />
@@ -135,7 +131,7 @@ const ScanScreen = (props) => {
 
           </View>
 
-        </ScrollView>
+        </View>
 
       </View>
     </TouchableWithoutFeedback>
@@ -149,7 +145,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   body: {
-    width: '100%',
+    width: screenWidth,
+    marginTop: screenHeight/4,
     alignItems: 'center'
   },
   backgroundImg: {
@@ -162,16 +159,19 @@ const styles = StyleSheet.create({
     right: 0,
     resizeMode: 'cover'
   },
-  barCodeScannerContainer: {
-    width: 300,
-    maxWidth: '80%',
-    height: 500,
-    maxHeight: '80%',
-    paddingVertical: 5,
-    marginTop: 20
-  },
-  scanResultContainer: {
+  searchSectionContainer: {
     flexDirection: 'column',
+    width: 350,
+    maxWidth: '90%',
+  },
+  searchBarContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  scanIcon: {
+    width: 35,
+    height: 35
   },
   input: {
     width: 300,
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 5
   },
-  backButton: {
+  clearButton: {
     width: 130,
     maxWidth: '80%',
     height: 50,
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20
   },
-  confirmButton: {
+  searchButton: {
     width: 130,
     maxWidth: '80%',
     height: 50,
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     justifyContent: 'center',
     marginBottom: 20
-  }
+  },
 });
 
-export default ScanScreen;
+export default HomeScreen;
