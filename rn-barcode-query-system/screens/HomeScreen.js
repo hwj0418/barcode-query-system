@@ -33,7 +33,7 @@ let screenHeight = Dimensions.get('window').height;
 const HomeScreen = (props) => {
 
   // Hooks
-  const [barcode, setBarcode] = useState('');
+  const [barcode, setBarcode] = useState(props.barcode);
   const [keyboardEnabled, setKeyboardEnabled] = useState(false);
 
   // Handler for pressing barcode result showing input box

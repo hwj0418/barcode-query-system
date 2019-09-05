@@ -75,6 +75,11 @@ const ScanScreen = (props) => {
     props.onBackButtonClicked();
   };
 
+  // Handler for clicking confirm button
+  const clickConfirmButtonHandler = (barcode) => {
+    props.onConfirmButtonClicked(barcode);
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={hideKeyboardHandler}
@@ -132,7 +137,7 @@ const ScanScreen = (props) => {
                 <Button
                   title={Texts.confirmButtonText}
                   color='white'
-                  onPress={() => {}}
+                  onPress={clickConfirmButtonHandler.bind(this, barcode)}
                 />
               </TouchableOpacity>
 

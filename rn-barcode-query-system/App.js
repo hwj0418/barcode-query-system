@@ -9,6 +9,7 @@ export default function App() {
 
   // Hooks
   const [scanScreenOn, setScanScreenOn] = useState(false);
+  const [barcode, setBarcode] = useState('');
 
   // Handler for redirecting from HomeScreen to ScanScreen
   const homeScreentoScanScreenHandler = () => {
@@ -20,11 +21,28 @@ export default function App() {
     setScanScreenOn(false);
   };
 
+  // Handler for redirecting from ScanScreen to HomeScreen with barcode transfering
+  const scanScreenToHomeScreenWithBarcodeHandler = (barcode) => {
+    setBarcode(barcode);
+    setScanScreenOn(false);
+  };
+
+
   let content;
   if (!scanScreenOn) {
-    content = (<HomeScreen onScanButtonClicked={homeScreentoScanScreenHandler} />);
+    content = (
+      <HomeScreen
+        onScanButtonClicked={homeScreentoScanScreenHandler}
+        barcode={barcode}
+      />
+    );
   } else {
-    content = (<ScanScreen onBackButtonClicked={scanScreenToHomeScreenHandler} />);
+    content = (
+      <ScanScreen
+        onBackButtonClicked={scanScreenToHomeScreenHandler}
+        onConfirmButtonClicked={scanScreenToHomeScreenWithBarcodeHandler}
+      />
+    );
   }
 
   return (
