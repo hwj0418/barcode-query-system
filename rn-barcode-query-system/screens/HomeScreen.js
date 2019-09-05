@@ -58,6 +58,13 @@ const HomeScreen = (props) => {
     setBarcode('');
   };
 
+  // Handler for searching a product with the given barcode
+  const searchProductHandler = () => {
+    props.onProductSearch(barcode);
+    // Clean up search bar field after searching
+    setBarcode('');
+  };
+
   // Handler for clicking barcode scanning button
   const clickScanButtonHandler = () => {
     props.onScanButtonClicked();
@@ -120,7 +127,7 @@ const HomeScreen = (props) => {
                 <Button
                   title={Texts.searchButtonText}
                   color='white'
-                  onPress={() => {}}
+                  onPress={searchProductHandler}
                 />
               </TouchableOpacity>
 

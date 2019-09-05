@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 
 // Import screens
 import ScanScreen from './screens/ScanScreen.js';
@@ -35,12 +35,24 @@ export default function App() {
     setHomeScreenOn(true);
   };
 
+  // Handler for search a product with given barcode sent from ScanScreen
+  const clickSearchButtonHandler = (barcode) => {
+    // TODO: fake backend for now.... need to be updated after BE is established
+    console.log("Waiting for BE responds for search product with barcode: " + barcode);
+    Alert.alert(
+      'Fake Backend',
+      "Waiting for BE responds for search product with barcode: " + barcode,
+      [{text: 'Okay', style: 'destructive', onPress: redirectToHome}]
+    );
+  }
+
 
   let content;
   if (homeScreenOn) {
     content = (
       <HomeScreen
         onScanButtonClicked={homeScreentoScanScreenHandler}
+        onProductSearch={clickSearchButtonHandler}
         barcode={barcode}
       />
     );
