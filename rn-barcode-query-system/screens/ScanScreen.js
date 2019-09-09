@@ -24,6 +24,10 @@ import ToggleView from '../components/ToggleView.js';
 import Colors from '../constants/colors.js';
 import Texts from '../constants/texts-en.js';
 
+// Import media file
+import BackgroundImg from '../media/background_grocery.png';
+
+
 let screenWidth = Dimensions.get('window').width;
 let screenHeight = Dimensions.get('window').height;
 
@@ -66,18 +70,25 @@ const ScanScreen = (props) => {
     console.log("After setKeyboardEnabled(false), keyboardEnabled: " + keyboardEnabled);
   };
 
+  // Handler for clicking back to HomeScreen button
+  const clickBackButtonHandler = () => {
+    props.onBackButtonClicked();
+  };
+
+  // Handler for clicking confirm button
+  const clickConfirmButtonHandler = (barcode) => {
+    props.onConfirmButtonClicked(barcode);
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={hideKeyboardHandler}
     >
       <View style={styles.screen}>
 
-        {/* Screen Header */}
-        <Header />
-
         {/* Backgound Image */}
         <View>
-            <Image style={styles.backgroundImg} source={require('../media/background_grocery.png')} />
+          <Image style={styles.backgroundImg} source={BackgroundImg} />
         </View>
 
         {/* Scrollale Main Body */}
@@ -104,6 +115,7 @@ const ScanScreen = (props) => {
               onChangeText={barcodeInputEditHandler}
               onFocus={barcodeInputPressedHandler}
               value={barcode}
+              contextMenuHidden={true}
             />
 
             {/* Operating Buttons Container */}
@@ -114,7 +126,7 @@ const ScanScreen = (props) => {
                 <Button
                   title={Texts.backButtonText}
                   color='white'
-                  onPress={() => {}}
+                  onPress={clickBackButtonHandler}
                 />
               </TouchableOpacity>
 
@@ -123,7 +135,7 @@ const ScanScreen = (props) => {
                 <Button
                   title={Texts.confirmButtonText}
                   color='white'
-                  onPress={() => {}}
+                  onPress={clickConfirmButtonHandler.bind(this, barcode)}
                 />
               </TouchableOpacity>
 
@@ -143,6 +155,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     justifyContent: 'flex-start',
+    width: '100%'
   },
   body: {
     width: '100%',
@@ -150,7 +163,7 @@ const styles = StyleSheet.create({
   },
   backgroundImg: {
     height: screenHeight,
-    width: screenWidth,
+    width: '100%',
     position: 'absolute',
     top: 0,
     bottom: 0,

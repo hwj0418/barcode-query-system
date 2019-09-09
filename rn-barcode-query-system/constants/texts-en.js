@@ -4,5 +4,7 @@ export default {
   navBarItemHome: 'Home',
   login: 'LOGIN',
   backButtonText: 'BACK',
-  confirmButtonText: 'CONFIRM'
+  confirmButtonText: 'CONFIRM',
+  clearButtonText: 'CLEAR',
+  searchButtonText: 'SEARCH'
 };

@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity
+} from 'react-native';
 
 // Import constants
 import Colors from '../constants/colors';
@@ -9,12 +14,29 @@ import Texts from '../constants/texts-en.js';
 import AcctNotLoginImg from '../media/login_icon.png';
 
 const Header = (props) => {
+
+  // Handler for Home on naviagtion bar clicked
+  const clickHomeHandler = () => {
+    props.onHomeClicked();
+  };
+
   return (
     <View style={styles.header}>
+
+      {/* Navigation bar */}
       <View style={styles.navBarContainer}>
-        <Text style={styles.navBarItem}>{Texts.navBarItemHome}</Text>
+
+        {/* Home on navigation bar */}
+        <TouchableOpacity onPress={clickHomeHandler}>
+          <Text style={styles.navBarItem}>{Texts.navBarItemHome}</Text>
+        </TouchableOpacity>
+
       </View>
+
+      {/* Title on header */}
       <Text style={styles.headerTitle}>{props.title}</Text>
+
+      {/* Login section on header */}
       <View style={styles.loginSectionContainer}>
         <Image
           style={styles.acctIcon}
