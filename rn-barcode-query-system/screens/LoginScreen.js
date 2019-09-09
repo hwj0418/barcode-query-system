@@ -8,10 +8,6 @@ import {
     TextInput,
 } from 'react-native';
 
-// Import constants
-import Colors from '../constants/colors';
-import Texts from '../constants/texts-en.js';
-
 var Dimensions = require('Dimensions');
 var width = Dimensions.get('window').width;
 
@@ -37,13 +33,6 @@ export default class loginView extends  Component {
                 <View style={styles.settingStyle}>
                     <Text>Forget password</Text>
                     <Text>New user</Text>
-                </View>
-                {/*第三方登录方式*/}
-                <View style={styles.otherLoginStyle}>
-                    <Text>Login with...</Text>
-                    <Image source={require('../media/login_icon.png')} style={styles.otherImageStyle}></Image>
-                    <Image source={require('../media/login_icon.png')} style={styles.otherImageStyle}></Image>
-                    <Image source={require('../media/login_icon.png')} style={styles.otherImageStyle}></Image>
                 </View>
             </View>
         );
@@ -87,20 +76,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         width:width*0.8,
         justifyContent:'space-between',
-    },
-    otherLoginStyle: {
-        flexDirection:'row',
-        alignItems:'center',
-        position:'absolute',
-        bottom:10,
-        left:20
-    },
-    otherImageStyle:{
-        width:50,
-        height:50,
-        borderRadius:25,
-        marginLeft:10,
-    },
+    }
 });
 
 module.exports = loginView;
