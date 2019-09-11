@@ -4,6 +4,7 @@ import { StyleSheet, View, Alert } from 'react-native';
 // Import screens
 import ScanScreen from './screens/ScanScreen.js';
 import HomeScreen from './screens/HomeScreen.js';
+import LoginScreen from './screens/LoginScreen.js';
 
 // Import components
 import Header from './components/Header.js';
@@ -12,12 +13,17 @@ export default function App() {
 
   // Hooks
   const [homeScreenOn, setHomeScreenOn] = useState(true);
-  const [barcode, setBarcode] = useState('');
+  const [barcode, setBarcode, userInfo, setUserInfo] = useState('');
 
   // Handler for Home button redirection on Header
   const redirectToHome = () => {
     setHomeScreenOn(true);
   };
+
+  // Handler for Login button
+  const redirectToLogin = (username, password) =>{
+    
+  }
 
   // Handler for redirecting from HomeScreen to ScanScreen
   const homeScreentoScanScreenHandler = () => {
@@ -56,23 +62,51 @@ export default function App() {
   }
 
 
-  let content;
-  if (homeScreenOn) {
-    content = (
-      <HomeScreen
-        onScanButtonClicked={homeScreentoScanScreenHandler}
-        onProductSearch={clickSearchButtonHandler}
-        barcode={barcode}
+  // let content;
+  // if (homeScreenOn) {
+  //   content = (
+  //     <HomeScreen
+  //       onScanButtonClicked={homeScreentoScanScreenHandler}
+  //       onProductSearch={clickSearchButtonHandler}
+  //       barcode={barcode}
+  //     />
+  //   );
+  // } else {
+  //   content = (
+  //     <ScanScreen
+  //       onBackButtonClicked={scanScreenToHomeScreenHandler}
+  //       onConfirmButtonClicked={scanScreenToHomeScreenWithBarcodeHandler}
+  //     />
+  //   );
+  // }
+
+
+  let content = "home";
+  switch(content) {
+    case "home":
+      content = 
+        <HomeScreen
+          onScanButtonClicked={homeScreentoScanScreenHandler}
+          onProductSearch={clickSearchButtonHandler}
+          barcode={barcode}
+        />
+      break;
+    case "scan":
+      content =   
+        <ScanScreen
+          onBackButtonClicked={scanScreenToHomeScreenHandler}
+          onConfirmButtonClicked={scanScreenToHomeScreenWithBarcodeHandler}
+        />
+      break;
+    case "login":
+      content = <Login 
+        onBackButtonClicked={loginScreenToHomeScreenHandler}
+        onLoginButtonClicked={loginButtonHandler}
+        onRegisterButtonClicked={registerButtonHandler}
+        onForgetPasswordButtonClicked={forgetPasswordButtonHandler}
       />
-    );
-  } else {
-    content = (
-      <ScanScreen
-        onBackButtonClicked={scanScreenToHomeScreenHandler}
-        onConfirmButtonClicked={scanScreenToHomeScreenWithBarcodeHandler}
-      />
-    );
   }
+
 
   return (
     <View style={styles.screen}>

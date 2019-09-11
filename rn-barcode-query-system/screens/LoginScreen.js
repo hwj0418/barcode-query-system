@@ -11,32 +11,30 @@ import {
 var Dimensions = require('Dimensions');
 var width = Dimensions.get('window').width;
 
-export default class loginView extends  Component {
-    render() {
-        return (
-            <View style={styles.container}>
-                {/*{default icon}*/}
-                <Image source={require('../media/login_icon.png')} style={styles.iconStyle}/>
-                {/*ask users for username and password*/}
-                <TextInput placeholder={'username'}
-                           style={styles.textInputStyle}
-                />
-                <TextInput placeholder={'password'}
-                           style={styles.textInputStyle}
-                           password={true}
-                />
-                {/*login button*/}
-                <View style={styles.loginBtnStyle}>
-                    <Text style={{color:'white'}}>Login</Text>
-                </View>
-                {/*other buttons*/}
-                <View style={styles.settingStyle}>
-                    <Text>Forget password</Text>
-                    <Text>New user</Text>
-                </View>
+const loginView = (props) => {
+    return (
+        <View style={styles.container}>
+            {/*{default icon}*/}
+            <Image source={require('../media/login_icon.png')} style={styles.iconStyle}/>
+            {/*ask users for username and password*/}
+            <TextInput placeholder={'username'}
+                        style={styles.textInputStyle}
+            />
+            <TextInput placeholder={'password'}
+                        style={styles.textInputStyle}
+                        password={true}
+            />
+            {/*login button*/}
+            <View style={styles.loginBtnStyle}>
+                <Text style={{color:'white'}}>Login</Text>
             </View>
-        );
-    }
+            {/*other buttons*/}
+            <View style={styles.settingStyle}>
+                <Text>Forget password</Text>
+                <Text>New user</Text>
+            </View>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
